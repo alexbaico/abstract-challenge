@@ -1,5 +1,6 @@
 package abstr.challenge.faraway.service;
 
+import abstr.challenge.faraway.dto.PeriodDTO;
 import abstr.challenge.faraway.dto.PlanetDTO;
 import abstr.challenge.faraway.model.Period;
 import abstr.challenge.faraway.model.PeriodType;
@@ -74,10 +75,18 @@ public class PeriodService {
         return period;
     }
 
-    public PeriodType getPeriodTypeForDate(String periodDateString) {
+    public PeriodDTO getPeriodTypeForDate(String periodDateString) {
         LocalDate periodDate = LocalDate.parse(periodDateString, DateTimeFormatter.ISO_LOCAL_DATE);
-        return periodRepository.findFirstByDate(periodDate).map(Period::getPeriodType)
-                .orElseGet(() -> calculateAndSavePeriodForDate(periodDate).getPeriodType());
+        Period period = periodRepository.findFirstByDate(periodDate)
+                .orElseGet(() -> calculateAndSavePeriodForDate(periodDate));
+        return mapToPeriodDTO(period);
+    }
+
+    private PeriodDTO mapToPeriodDTO(Period period) {
+        return PeriodDTO.builder()
+                .date(period.getDate())
+                .periodType(period.getPeriodType().name())
+                .build();
     }
 
     private Period calculateAndSavePeriodForDate(LocalDate periodDate) {

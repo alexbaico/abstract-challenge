@@ -1,6 +1,6 @@
 package abstr.challenge.faraway.controller;
 
-import abstr.challenge.faraway.model.PeriodType;
+import abstr.challenge.faraway.dto.PeriodDTO;
 import abstr.challenge.faraway.service.PeriodService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +15,9 @@ public class PeriodController {
     private final PeriodService periodService;
 
     @GetMapping("/period/{periodDate}")
-    public ResponseEntity<PeriodType> getPeriodTypeForDate(@PathVariable String periodDate){
-        PeriodType periodType = periodService.getPeriodTypeForDate(periodDate);
-        return ResponseEntity.ok(periodType);
+    public ResponseEntity<PeriodDTO> getPeriodTypeForDate(@PathVariable String periodDate){
+        PeriodDTO period = periodService.getPeriodTypeForDate(periodDate);
+        return ResponseEntity.ok(period);
     }
 
 }
