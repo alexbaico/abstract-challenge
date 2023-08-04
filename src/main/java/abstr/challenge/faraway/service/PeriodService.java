@@ -21,6 +21,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PeriodService {
 
+    //This is the day we take as a reference or starting point to calculate the periods,
+    //at this date all planets are aligned in the 0 degrees, and the rest are calculated from here
     public static LocalDate DAY_ZERO;
 
     private static double MAX_TRIANGE_PERIMETER;
